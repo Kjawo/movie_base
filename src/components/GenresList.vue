@@ -51,5 +51,15 @@
 </script>
 
 <style>
+    .v-select .dropdown-toggle {
+        display: flex !important;
+        flex-wrap: wrap;}
 
+    .v-select input[type=search], .v-select input[type=search]:focus {
+        flex-basis: 20px;
+        flex-grow: 1;
+        height: 33px;
+        padding: 0 20px 0 10px;
+        width: 100% !important;
+    }
 </style>

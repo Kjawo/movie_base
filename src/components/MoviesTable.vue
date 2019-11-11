@@ -19,7 +19,10 @@
             </tr>
             </tbody>
         </table>
+        <div class="'container s1">
         <a @click="showMore" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        <a @click="showLess" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">remove</i></a>
+        </div>
     </div>
 </template>
 
@@ -36,6 +39,11 @@
         methods: {
             showMore() {
                 this.showNumber += 10
+            },
+            showLess() {
+                if(this.showNumber >= 10) {
+                    this.showNumber -= 10
+                }
             }
 
         },

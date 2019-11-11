@@ -2,7 +2,8 @@
     <div id="app">
         <div class="container">
             <h1>Baza filmów</h1>
-            <MoviesTable :Movies="Movies"/>
+            <Search :Movies="Movies" @newFilteredMovies="updateFilteredMovies"/>
+            <MoviesTable :Movies="FilteredMovies" />
             <GenresList :SlicedMovies="SlicedMovies" :SlicedGenres="SlicedGenres"/>
             <CastList :SlicedMovies="SlicedMovies" :SlicedCast="SlicedCast"/>
         </div>
@@ -12,17 +13,20 @@
 <script>
     import axios from "axios";
     // import Movies from './assets/movies.json'
+    import underscore from "underscore"
+
     import MoviesTable from "@/components/MoviesTable";
     import GenresList from "@/components/GenresList";
     import CastList from "@/components/CastList";
-    import underscore from "underscore"
+    import Search from "@/components/Search";
 
     export default {
         name: 'app',
-        components: {GenresList, MoviesTable, CastList},
+        components: {Search, GenresList, MoviesTable, CastList},
         created() {
             axios.get('/movies.json').then(response => {
                 this.Movies = response.data;
+                this.FilteredMovies = this.Movies;
                 this.SlicedMovies = this.Movies.slice(28600, 28700);
                 this.prepSlicedData();
                 // eslint-disable-next-line no-console
@@ -32,6 +36,7 @@
         data() {
             return {
                 Movies: [],
+                FilteredMovies: [],
                 SlicedMovies: [],
                 SlicedGenres: [],
                 SlicedCast: []
@@ -52,6 +57,11 @@
                 this.SlicedCast = underscore.uniq(tempCast);
                 // eslint-disable-next-line no-console
                 console.log(this.SlicedCast)
+            },
+            updateFilteredMovies(payload) {
+                this.FilteredMovies = payload.filteredMovies;
+                // eslint-disable-next-line no-console
+                console.log(payload.filteredMovies);
             }
         },
 
