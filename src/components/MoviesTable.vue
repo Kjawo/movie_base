@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Movie table</h2>
-        <table class="responsive-table">
+        <table>
             <thead>
             <tr>
                 <th>Title</th>
@@ -14,12 +14,11 @@
             <tr v-for="(Movie, index) in lessMovieTable" v-bind:key="index">
                 <td>"{{Movie.title}}"</td>
                 <td>{{Movie.year}}</td>
-                <td>{{Movie.cast}}</td>
-                <td>{{Movie.genres}}</td>
+                <td>{{Movie.cast.join(', ')}}</td>
+                <td>{{Movie.genres.join(', ')}}</td>
             </tr>
             </tbody>
         </table>
-        <button @click="showMore">Show more</button>
         <a @click="showMore" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
     </div>
 </template>
