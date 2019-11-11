@@ -4,6 +4,7 @@
             <h1>Baza filmów</h1>
             <MoviesTable :Movies="Movies"/>
             <GenresList :SlicedMovies="SlicedMovies" :SlicedGenres="SlicedGenres"/>
+            <CastList :SlicedMovies="SlicedMovies" :SlicedCast="SlicedCast"/>
         </div>
     </div>
 </template>
@@ -13,16 +14,17 @@
     // import Movies from './assets/movies.json'
     import MoviesTable from "@/components/MoviesTable";
     import GenresList from "@/components/GenresList";
+    import CastList from "@/components/CastList";
     import underscore from "underscore"
 
     export default {
         name: 'app',
-        components: {GenresList, MoviesTable},
+        components: {GenresList, MoviesTable, CastList},
         created() {
             axios.get('/movies.json').then(response => {
                 this.Movies = response.data;
                 this.SlicedMovies = this.Movies.slice(28600, 28700);
-                this.prepGenres();
+                this.prepSlicedData();
                 // eslint-disable-next-line no-console
                 console.log(this.Movies)
             })
@@ -31,19 +33,25 @@
             return {
                 Movies: [],
                 SlicedMovies: [],
-                SlicedGenres: []
+                SlicedGenres: [],
+                SlicedCast: []
             }
         },
         methods: {
-            prepGenres() {
-                let temp = [];
+            prepSlicedData() {
+                let tempGenre = [];
+                let tempCast = [];
                 underscore.each(this.SlicedMovies, function (Movie) {
-                    temp.push(Movie.genres)
+                    tempGenre.push(Movie.genres);
+                    tempCast.push(Movie.cast)
+
                 });
-                temp = underscore.flatten(temp);
-                this.SlicedGenres = underscore.uniq(temp);
+                tempGenre = underscore.flatten(tempGenre);
+                tempCast = underscore.flatten(tempCast);
+                this.SlicedGenres = underscore.uniq(tempGenre);
+                this.SlicedCast = underscore.uniq(tempCast);
                 // eslint-disable-next-line no-console
-                console.log(this.SlicedGenres)
+                console.log(this.SlicedCast)
             }
         },
 

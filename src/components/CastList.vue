@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h2>Genres List</h2>
+        <h2>Cast List</h2>
         <div>
             <v-select v-model="selected"
-                      :options="SlicedGenres"
+                      :options="SlicedCast"
                       @input="filterMovies"
             ></v-select>
         </div>
@@ -24,8 +24,8 @@
 
 
     export default {
-        name: "GenresList",
-        props: ['SlicedMovies', 'SlicedGenres'],
+        name: "CastList",
+        props: ['SlicedMovies', 'SlicedCast'],
         data() {
             return {
                 selected: '',
@@ -36,7 +36,7 @@
             filterMovies() {
                 let tmp = this.selected;
                 this.filteredMovies = underscore.filter(this.SlicedMovies, function (movie) {
-                    return underscore.contains(movie.genres, tmp)
+                    return underscore.contains(movie.cast, tmp)
                 });
             }
         },
