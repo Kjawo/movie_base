@@ -43,8 +43,11 @@
         components: {
             vSelect
         },
-        computed: {
-
+        beforeUpdate() {
+            if (this.selected === '') {
+                this.selected = this.SlicedGenres[0];
+                this.filterMovies();
+            }
         }
 
     }
@@ -53,7 +56,8 @@
 <style>
     .v-select .dropdown-toggle {
         display: flex !important;
-        flex-wrap: wrap;}
+        flex-wrap: wrap;
+    }
 
     .v-select input[type=search], .v-select input[type=search]:focus {
         flex-basis: 20px;

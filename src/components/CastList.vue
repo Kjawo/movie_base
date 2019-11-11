@@ -43,8 +43,12 @@
         components: {
             vSelect
         },
-        computed: {
 
+        beforeUpdate() {
+            if (this.selected === '') {
+                this.selected = this.SlicedCast[0];
+                this.filterMovies();
+            }
         }
 
     }
